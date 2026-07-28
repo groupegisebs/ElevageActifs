@@ -44,6 +44,23 @@ Créer les mêmes noms (`SSH_PRIVATE_KEY_UBUNTU1`, `SSH_HOST_UBUNTU1`, `SSH_USER
 | `UBUNTU1_SERVICE_NAME` | `elevageactifs` |
 | `UBUNTU1_LISTEN_PORT` | `5072` |
 | `UBUNTU1_APP_NAME` | `ElevageActifs` *(optionnel)* |
+| **`ELEVAGEACTIFS_MAILGATEWAY_API_KEY`** | Token API SecureMail (client `ELEVAGEACTIFS`) — **secret uniquement, jamais dans appsettings** |
+
+### Variables (optionnel)
+
+| Variable | Valeur |
+|----------|--------|
+| `ELEVAGEACTIFS_MAILGATEWAY_BASE_URL` | `https://gisemailsender.gisebs.com` |
+| `ELEVAGEACTIFS_MAILGATEWAY_CLIENT_CODE` | `ELEVAGEACTIFS` |
+| `ELEVAGEACTIFS_MAILGATEWAY_TEMPLATE_CODE` | `TRANSACTIONAL` |
+
+> Le workflow écrit `Email__MailGateway__ApiKey` dans `/opt/apps/elevageactifs/app/app.env` au déploiement.
+
+### Local (dev)
+
+```powershell
+dotnet user-secrets set "Email:MailGateway:ApiKey" "<token>" --project src/ElevageActifs.Web
+```
 
 ---
 
