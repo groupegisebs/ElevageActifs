@@ -1,9 +1,11 @@
+using ElevageActifs.Web.Configuration;
 using ElevageActifs.Web.Models.Identity;
 using ElevageActifs.Web.Options;
 using ElevageActifs.Web.Services.Email;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.Extensions.Options;
 
 namespace ElevageActifs.Web.Extensions;
 
@@ -55,6 +57,21 @@ public static class IdentityExtensions
     public static IServiceCollection AddEmailServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.Configure<AuthMessageSenderOptions>(configuration.GetSection(AuthMessageSenderOptions.SectionName));
+        services.Configure<MailGatewayOptions>(configuration.GetSection(MailGatewayOptions.SectionName));
+
+        services.AddHttpClient("MailGateway", (sp, client) =>
+        {
+            var mailGateway = sp.GetRequiredService<IOptions<MailGatewayOptions>>().Value;
+            if (!mailGateway.IsConfigured)
+                return;
+
+            client.BaseAddress = new Uri(mailGateway.GetBaseUri().ToString().TrimEnd('/') + "/");
+            client.Timeout = TimeSpan.FromSeconds(mailGateway.RequestTimeoutSeconds);
+            client.DefaultRequestHeaders.Authorization =
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", mailGateway.ApiKey);
+        });
+
+        services.AddScoped<IMailGatewayClient, MailGatewayClient>();
         services.AddTransient<IEmailSender, EmailSender>();
         return services;
     }
