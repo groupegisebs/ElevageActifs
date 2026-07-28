@@ -1,6 +1,9 @@
 # Serveur UBUNTU1 — configuration GitHub (ElevageActifs)
 
-Convention : **`SSH_*_UBUNTU1`** à l’organisation, **`UBUNTU1_*`** au dépôt.
+> **Org GitHub :** [`groupegisebs`](https://github.com/groupegisebs)  
+> (ComptaDoc est sous `BedigaCorps` — ses secrets org **ne s’appliquent pas** ici.)
+
+Convention : **`SSH_*_UBUNTU1`** à l’organisation **groupegisebs** (ou en secret dépôt), **`UBUNTU1_*`** au dépôt.
 
 | Serveur | ID | IP |
 |---------|-----|-----|
@@ -8,22 +11,31 @@ Convention : **`SSH_*_UBUNTU1`** à l’organisation, **`UBUNTU1_*`** au dépôt
 
 ---
 
-## Organisation BedigaCorps
+## 1. Secrets SSH (obligatoire)
 
-**https://github.com/organizations/BedigaCorps/settings/secrets/actions**
+### Option A — Organisation groupegisebs (recommandé)
+
+1. Ouvrir https://github.com/organizations/groupegisebs/settings/secrets/actions  
+2. Créer / vérifier :
 
 | Secret | Valeur |
 |--------|--------|
-| `SSH_PRIVATE_KEY_UBUNTU1` | Clé privée deploy (multiligne) |
+| `SSH_PRIVATE_KEY_UBUNTU1` | Même clé privée que pour ComptaDoc/CogniDoc (multiligne) |
 | `SSH_HOST_UBUNTU1` | `51.79.53.197` |
 | `SSH_USER_UBUNTU1` | `ubuntu` |
-| `SSH_PORT_UBUNTU1` | `22` |
+| `SSH_PORT_UBUNTU1` | `22` *(secret ou variable)* |
 
-**Repository access** → autoriser le dépôt **ElevageActifs**.
+3. Sur le secret `SSH_PRIVATE_KEY_UBUNTU1` → **Repository access** → cocher **ElevageActifs** (et **AgriActifs**).
+
+### Option B — Secrets au niveau du dépôt
+
+https://github.com/groupegisebs/ElevageActifs/settings/secrets/actions  
+
+Créer les mêmes noms (`SSH_PRIVATE_KEY_UBUNTU1`, `SSH_HOST_UBUNTU1`, `SSH_USER_UBUNTU1`, …).
 
 ---
 
-## Dépôt ElevageActifs — Secrets
+## 2. Secrets applicatifs (dépôt ElevageActifs)
 
 | Secret | Valeur |
 |--------|--------|
@@ -56,4 +68,4 @@ dotnet --list-runtimes   # Microsoft.AspNetCore.App 10.x
 
 ## Déploiement
 
-Push sur `main` / `master`, ou **Actions → Deploy Production → Run workflow**.
+**Actions → Deploy Production → Run workflow**
