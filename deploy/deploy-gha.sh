@@ -9,7 +9,7 @@ set -euo pipefail
 : "${APP_ROOT:?APP_ROOT requis}"
 : "${SERVICE_NAME:?SERVICE_NAME requis}"
 : "${DLL_NAME:=ElevageActifs.Web.dll}"
-: "${LISTEN_PORT:=5052}"
+: "${LISTEN_PORT:=5072}"
 : "${CONNECTION_STRING:?CONNECTION_STRING requis}"
 : "${DATABASE_PROVIDER:=PostgreSQL}"
 : "${DATABASE_SCHEMA:=elevageactifs}"

@@ -5,7 +5,7 @@
   "appRoot": "/opt/apps/elevageactifs",
   "dllName": "ElevageActifs.Web.dll",
   "projectPath": "src/ElevageActifs.Web/ElevageActifs.Web.csproj",
-  "healthCheckUrl": "http://localhost:5052",
-  "listenPort": 5052,
+  "healthCheckUrl": "http://localhost:5072",
+  "listenPort": 5072,
   "sshIdentityKey": "cognidoc_deploy"
 }

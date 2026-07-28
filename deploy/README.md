@@ -20,7 +20,7 @@ Secrets dépôt :
 
 - `UBUNTU1_APP_ROOT` = `/opt/apps/elevageactifs`
 - `UBUNTU1_SERVICE_NAME` = `elevageactifs`
-- `UBUNTU1_LISTEN_PORT` = `5052`
+- `UBUNTU1_LISTEN_PORT` = `5072`
 - `UBUNTU1_CONNECTION_STRING` = chaîne PostgreSQL
 
 ## Déploiement local Windows → Ubuntu
@@ -37,6 +37,6 @@ copy deploy\deploy-all.config.example.json deploy\deploy-all.config.json
 |-----------|--------|
 | Service systemd | `elevageactifs` |
 | Répertoire | `/opt/apps/elevageactifs` |
-| Port | `5052` |
+| Port | `5072` |
 | Schéma PostgreSQL | `elevageactifs` |
 | DLL | `ElevageActifs.Web.dll` |

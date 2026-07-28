@@ -30,7 +30,7 @@ Convention : **`SSH_*_UBUNTU1`** à l’organisation, **`UBUNTU1_*`** au dépôt
 | `UBUNTU1_CONNECTION_STRING` | Chaîne PostgreSQL (schéma `elevageactifs`) |
 | `UBUNTU1_APP_ROOT` | `/opt/apps/elevageactifs` |
 | `UBUNTU1_SERVICE_NAME` | `elevageactifs` |
-| `UBUNTU1_LISTEN_PORT` | `5052` |
+| `UBUNTU1_LISTEN_PORT` | `5072` |
 | `UBUNTU1_APP_NAME` | `ElevageActifs` *(optionnel)* |
 
 ---
@@ -41,7 +41,7 @@ Convention : **`SSH_*_UBUNTU1`** à l’organisation, **`UBUNTU1_*`** au dépôt
 |-------|--------|
 | Scheme | **`http`** |
 | Forward Host | `172.17.0.1` |
-| Forward Port | `5052` |
+| Forward Port | `5072` |
 
 ---
 

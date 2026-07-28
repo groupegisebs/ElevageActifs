@@ -14,7 +14,7 @@ dotnet ef database update --project src/ElevageActifs.Web
 dotnet run --project src/ElevageActifs.Web --launch-profile https
 ```
 
-URL : https://localhost:7122 (http://localhost:5052)
+URL : https://localhost:7172 (http://localhost:5072)
 
 ## Comptes démo
 
@@ -58,7 +58,7 @@ Voir [`deploy/servers/ubuntu1.md`](deploy/servers/ubuntu1.md).
 sudo mkdir -p /opt/apps/elevageactifs && sudo chown ubuntu:ubuntu /opt/apps/elevageactifs
 ```
 
-Secrets : `UBUNTU1_APP_ROOT=/opt/apps/elevageactifs`, `UBUNTU1_SERVICE_NAME=elevageactifs`, `UBUNTU1_LISTEN_PORT=5052`, `UBUNTU1_CONNECTION_STRING=...`
+Secrets : `UBUNTU1_APP_ROOT=/opt/apps/elevageactifs`, `UBUNTU1_SERVICE_NAME=elevageactifs`, `UBUNTU1_LISTEN_PORT=5072`, `UBUNTU1_CONNECTION_STRING=...`
 
 ## Modules
 
