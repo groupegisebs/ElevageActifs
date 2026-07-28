@@ -1,11 +1,11 @@
 {
-  "_comment": "Copiez ce fichier vers deploy/project.config.json et adaptez-le à VOTRE projet (ne pas committer project.config.json).",
-  "appName": "GISEBS Secure MVC Starter",
-  "serviceName": "gisebs-securemvc",
-  "appRoot": "/opt/apps/gisebs-securemvc",
+  "_comment": "Copiez vers deploy/project.config.json (gitignored) et adaptez si besoin.",
+  "appName": "ElevageActifs",
+  "serviceName": "elevageactifs",
+  "appRoot": "/opt/apps/elevageactifs",
   "dllName": "ElevageActifs.Web.dll",
   "projectPath": "src/ElevageActifs.Web/ElevageActifs.Web.csproj",
-  "healthCheckUrl": "http://localhost:5050",
-  "listenPort": 5050,
+  "healthCheckUrl": "http://localhost:5052",
+  "listenPort": 5052,
   "sshIdentityKey": "cognidoc_deploy"
 }

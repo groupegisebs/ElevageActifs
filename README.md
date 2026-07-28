@@ -50,6 +50,16 @@ git remote add origin https://github.com/VOTRE_ORG/ElevageActifs.git
 git push -u origin main
 ```
 
+## Déploiement serveur (GitHub Actions)
+
+Voir [`deploy/servers/ubuntu1.md`](deploy/servers/ubuntu1.md).
+
+```bash
+sudo mkdir -p /opt/apps/elevageactifs && sudo chown ubuntu:ubuntu /opt/apps/elevageactifs
+```
+
+Secrets : `UBUNTU1_APP_ROOT=/opt/apps/elevageactifs`, `UBUNTU1_SERVICE_NAME=elevageactifs`, `UBUNTU1_LISTEN_PORT=5052`, `UBUNTU1_CONNECTION_STRING=...`
+
 ## Modules
 
 Area `Elevage` : Dashboard, Exploitations, Troupeaux/Lots/Enclos, Animaux (export CSV), Santé, Reproduction, Actifs matériels, Stocks, Maintenance, Fournisseurs.
