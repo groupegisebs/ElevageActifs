@@ -56,6 +56,48 @@ public class PermissionAdminService(
         }
     }
 
+    public async Task EnsureRoleCategoryGrantsAsync(
+        string roleName,
+        string category,
+        CancellationToken cancellationToken = default)
+    {
+        var role = await roleManager.FindByNameAsync(roleName);
+        if (role is null)
+            return;
+
+        var grantedIds = await dbContext.RolePermissionGrants
+            .Where(g => g.RoleId == role.Id && g.IsGranted)
+            .Select(g => g.PermissionDefinitionId)
+            .ToHashSetAsync(cancellationToken);
+
+        var permissionIds = await dbContext.PermissionDefinitions
+            .Where(p => p.IsActive && p.Category == category)
+            .Select(p => p.Id)
+            .ToListAsync(cancellationToken);
+
+        var added = false;
+        foreach (var permissionId in permissionIds)
+        {
+            if (grantedIds.Contains(permissionId))
+                continue;
+
+            dbContext.RolePermissionGrants.Add(new RolePermissionGrant
+            {
+                RoleId = role.Id,
+                PermissionDefinitionId = permissionId,
+                IsGranted = true
+            });
+            added = true;
+        }
+
+        if (added)
+        {
+            await dbContext.SaveChangesAsync(cancellationToken);
+            dynamicPermissionService.InvalidateCache();
+            securedEndpointService.InvalidateCache();
+        }
+    }
+
     public async Task<PermissionMatrixViewModel> GetMatrixAsync(CancellationToken cancellationToken = default)
     {
         var roles = await dbContext.Roles

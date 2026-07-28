@@ -47,6 +47,8 @@ public static class SeedData
         await SeedSuperAdminAsync(userManager);
         await EnsureUserAsync(userManager, AdminEmail, AdminPassword, "Admin", "Elevage", AppRoles.Admin);
         await permissionAdmin.EnsureSuperAdminGrantsAsync();
+        await permissionAdmin.EnsureRoleCategoryGrantsAsync(AppRoles.User, "Elevage");
+        await permissionAdmin.EnsureRoleCategoryGrantsAsync(AppRoles.Admin, "Elevage");
 
         if (configuration.GetValue("Seed:IncludeDemoData", true))
             await SeedDemoAsync(context, userManager);
