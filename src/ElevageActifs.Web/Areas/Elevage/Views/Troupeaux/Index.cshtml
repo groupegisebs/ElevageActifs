@@ -1,0 +1,42 @@
+@model IEnumerable<Troupeau>
+@{ ViewData["Title"] = "Troupeaux"; var enclos = (IEnumerable<Enclos>)ViewBag.Enclos; }
+<div class="container py-4">
+    <div class="d-flex justify-content-between mb-3 flex-wrap gap-2">
+        <h1 class="h3">Troupeaux</h1>
+        <div class="d-flex gap-2">
+            <a class="btn btn-outline-secondary" asp-action="CreateEnclos">Nouvel enclos</a>
+            <a class="btn btn-primary" asp-action="Create">Nouveau troupeau</a>
+        </div>
+    </div>
+
+    <h2 class="h5 mt-4">Troupeaux et lots</h2>
+    <table class="table table-striped align-middle">
+        <thead><tr><th>Code</th><th>Nom</th><th>Espèce</th><th>Lots</th><th></th></tr></thead>
+        <tbody>
+        @foreach (var t in Model)
+        {
+            <tr>
+                <td>@t.Code</td>
+                <td>@t.Name</td>
+                <td>@t.Species</td>
+                <td>@string.Join(", ", t.Lots.Select(l => l.Name))</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@t.Id">Modifier</a> |
+                    <a asp-action="CreateLot" asp-route-troupeauId="@t.Id">Ajouter lot</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+    <h2 class="h5 mt-4">Enclos</h2>
+    <table class="table table-striped align-middle">
+        <thead><tr><th>Code</th><th>Nom</th><th>Capacité</th></tr></thead>
+        <tbody>
+        @foreach (var e in enclos)
+        {
+            <tr><td>@e.Code</td><td>@e.Name</td><td>@(e.Capacity?.ToString() ?? "—")</td></tr>
+        }
+        </tbody>
+    </table>
+</div>

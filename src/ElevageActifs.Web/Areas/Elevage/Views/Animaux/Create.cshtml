@@ -1,0 +1,35 @@
+@model Animal
+@{ ViewData["Title"] = Model.Id == 0 ? "Nouvel animal" : "Modifier animal"; }
+<div class="container py-4" style="max-width:800px">
+    <h1 class="h3 mb-3">@ViewData["Title"]</h1>
+    <form method="post">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="ExploitationId" />
+        <input type="hidden" asp-for="CreatedAt" />
+        <div class="row">
+            <div class="col-md-6 mb-3"><label asp-for="BoucleNumber" class="form-label">N° boucle</label><input asp-for="BoucleNumber" class="form-control" /></div>
+            <div class="col-md-6 mb-3"><label asp-for="RfidTag" class="form-label">RFID</label><input asp-for="RfidTag" class="form-control" /></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-3"><label asp-for="Species" class="form-label">Espèce</label><input asp-for="Species" class="form-control" /></div>
+            <div class="col-md-4 mb-3"><label asp-for="Race" class="form-label">Race</label><input asp-for="Race" class="form-control" /></div>
+            <div class="col-md-4 mb-3"><label asp-for="Sex" class="form-label">Sexe</label><input asp-for="Sex" class="form-control" /></div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3"><label asp-for="BirthDate" class="form-label">Naissance</label><input asp-for="BirthDate" class="form-control" type="date" /></div>
+            <div class="col-md-6 mb-3"><label asp-for="Statut" class="form-label"></label><select asp-for="Statut" class="form-select" asp-items="Html.GetEnumSelectList<AnimalStatut>()"></select></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-3"><label asp-for="TroupeauId" class="form-label">Troupeau</label><select asp-for="TroupeauId" class="form-select" asp-items="ViewBag.Troupeaux"><option value="">—</option></select></div>
+            <div class="col-md-4 mb-3"><label asp-for="LotId" class="form-label">Lot</label><select asp-for="LotId" class="form-select" asp-items="ViewBag.Lots"><option value="">—</option></select></div>
+            <div class="col-md-4 mb-3"><label asp-for="EnclosId" class="form-label">Enclos</label><select asp-for="EnclosId" class="form-select" asp-items="ViewBag.Enclos"><option value="">—</option></select></div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3"><label asp-for="MotherId" class="form-label">Mère</label><select asp-for="MotherId" class="form-select" asp-items="ViewBag.Animaux"><option value="">—</option></select></div>
+            <div class="col-md-6 mb-3"><label asp-for="FatherId" class="form-label">Père</label><select asp-for="FatherId" class="form-select" asp-items="ViewBag.Animaux"><option value="">—</option></select></div>
+        </div>
+        <div class="mb-3"><label asp-for="Notes" class="form-label"></label><textarea asp-for="Notes" class="form-control"></textarea></div>
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+        <a asp-action="Index" class="btn btn-link">Annuler</a>
+    </form>
+</div>

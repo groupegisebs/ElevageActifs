@@ -1,0 +1,35 @@
+@model IEnumerable<Animal>
+@{ ViewData["Title"] = "Animaux"; }
+<div class="container py-4">
+    <div class="d-flex justify-content-between mb-3 flex-wrap gap-2">
+        <h1 class="h3">Animaux</h1>
+        <div class="d-flex gap-2">
+            <a class="btn btn-outline-secondary" asp-action="Export">Export CSV</a>
+            <a class="btn btn-primary" asp-action="Create">Nouvel animal</a>
+        </div>
+    </div>
+    <form method="get" class="row g-2 mb-3">
+        <div class="col-auto"><select name="statut" class="form-select" asp-items="Html.GetEnumSelectList<AnimalStatut>()"><option value="">Tous statuts</option></select></div>
+        <div class="col-auto"><button class="btn btn-outline-primary" type="submit">Filtrer</button></div>
+    </form>
+    <table class="table table-striped align-middle">
+        <thead><tr><th>Boucle</th><th>Espèce</th><th>Race</th><th>Sexe</th><th>Statut</th><th>Troupeau</th><th></th></tr></thead>
+        <tbody>
+        @foreach (var a in Model)
+        {
+            <tr>
+                <td>@a.BoucleNumber</td>
+                <td>@a.Species</td>
+                <td>@a.Race</td>
+                <td>@a.Sex</td>
+                <td>@a.Statut</td>
+                <td>@(a.Troupeau?.Name ?? "—")</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@a.Id">Fiche</a> |
+                    <a asp-action="Edit" asp-route-id="@a.Id">Modifier</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

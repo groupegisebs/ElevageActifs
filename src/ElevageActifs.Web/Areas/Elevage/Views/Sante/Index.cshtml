@@ -1,0 +1,44 @@
+@{ ViewData["Title"] = "Santé"; var protocoles = (IEnumerable<ProtocoleSanitaire>)ViewBag.Protocoles; var traitements = (IEnumerable<Traitement>)ViewBag.Traitements; }
+<div class="container py-4">
+    <div class="d-flex justify-content-between mb-3 flex-wrap gap-2">
+        <h1 class="h3">Santé</h1>
+        <div class="d-flex gap-2">
+            <a class="btn btn-outline-primary" asp-action="CreateProtocole">Nouveau protocole</a>
+            <a class="btn btn-primary" asp-action="CreateTraitement">Nouveau traitement</a>
+        </div>
+    </div>
+
+    <h2 class="h5">Protocoles sanitaires</h2>
+    <table class="table table-striped mb-4">
+        <thead><tr><th>Nom</th><th>Espèce</th><th>Description</th><th></th></tr></thead>
+        <tbody>
+        @foreach (var p in protocoles)
+        {
+            <tr>
+                <td>@p.Name</td>
+                <td>@p.Species</td>
+                <td>@p.Description</td>
+                <td><a asp-action="EditProtocole" asp-route-id="@p.Id">Modifier</a></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+    <h2 class="h5">Traitements</h2>
+    <table class="table table-striped">
+        <thead><tr><th>Date</th><th>Produit</th><th>Dose</th><th>Cible</th><th>Attente lait</th><th>Attente viande</th></tr></thead>
+        <tbody>
+        @foreach (var t in traitements)
+        {
+            <tr>
+                <td>@t.AdministeredAt.ToString("yyyy-MM-dd")</td>
+                <td>@t.Product</td>
+                <td>@t.Dose</td>
+                <td>@(t.Animal?.BoucleNumber ?? t.Lot?.Name ?? "—")</td>
+                <td>@(t.WaitMilkUntil?.ToString("yyyy-MM-dd") ?? "—")</td>
+                <td>@(t.WaitMeatUntil?.ToString("yyyy-MM-dd") ?? "—")</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,15 @@
+@model ActifMateriel
+@{ ViewData["Title"] = Model.InternalCode; }
+<div class="container py-4">
+    <h1 class="h3 mb-3">@Model.Name</h1>
+    <dl class="row">
+        <dt class="col-sm-3">Code</dt><dd class="col-sm-9">@Model.InternalCode</dd>
+        <dt class="col-sm-3">Catégorie</dt><dd class="col-sm-9">@Model.Categorie</dd>
+        <dt class="col-sm-3">Statut</dt><dd class="col-sm-9">@Model.Statut</dd>
+        <dt class="col-sm-3">Marque / Modèle</dt><dd class="col-sm-9">@(Model.Brand ?? "—") / @(Model.Model ?? "—")</dd>
+        <dt class="col-sm-3">Valeur</dt><dd class="col-sm-9">@Model.AcquisitionValue.ToString("C")</dd>
+        <dt class="col-sm-3">Enclos</dt><dd class="col-sm-9">@(Model.Enclos?.Name ?? "—")</dd>
+    </dl>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Modifier</a>
+    <a asp-action="Index" class="btn btn-link">Retour</a>
+</div>

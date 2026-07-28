@@ -1,0 +1,18 @@
+@model EvenementReproduction
+@{ ViewData["Title"] = "Modifier événement reproduction"; }
+<div class="container py-4" style="max-width:600px">
+    <h1 class="h3 mb-3">@ViewData["Title"]</h1>
+    <form method="post">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="ExploitationId" />
+        <div class="mb-3"><label asp-for="AnimalId" class="form-label">Animal</label><select asp-for="AnimalId" class="form-select" asp-items="ViewBag.Animaux"></select></div>
+        <div class="mb-3"><label asp-for="Type" class="form-label"></label><select asp-for="Type" class="form-select" asp-items="Html.GetEnumSelectList<ReproductionType>()"></select></div>
+        <div class="row">
+            <div class="col-md-6 mb-3"><label asp-for="StartDate" class="form-label">Début</label><input asp-for="StartDate" class="form-control" type="date" /></div>
+            <div class="col-md-6 mb-3"><label asp-for="EndDate" class="form-label">Fin</label><input asp-for="EndDate" class="form-control" type="date" /></div>
+        </div>
+        <div class="mb-3"><label asp-for="Notes" class="form-label"></label><textarea asp-for="Notes" class="form-control"></textarea></div>
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+        <a asp-action="Index" class="btn btn-link">Annuler</a>
+    </form>
+</div>

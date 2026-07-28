@@ -1,0 +1,24 @@
+@model Traitement
+@{ ViewData["Title"] = "Nouveau traitement"; }
+<div class="container py-4" style="max-width:700px">
+    <h1 class="h3 mb-3">@ViewData["Title"]</h1>
+    <form method="post">
+        <div class="row">
+            <div class="col-md-6 mb-3"><label asp-for="Product" class="form-label">Produit</label><input asp-for="Product" class="form-control" /></div>
+            <div class="col-md-6 mb-3"><label asp-for="Dose" class="form-label"></label><input asp-for="Dose" class="form-control" /></div>
+        </div>
+        <div class="mb-3"><label asp-for="AdministeredAt" class="form-label">Date</label><input asp-for="AdministeredAt" class="form-control" type="date" /></div>
+        <div class="row">
+            <div class="col-md-4 mb-3"><label asp-for="AnimalId" class="form-label">Animal</label><select asp-for="AnimalId" class="form-select" asp-items="ViewBag.Animaux"><option value="">—</option></select></div>
+            <div class="col-md-4 mb-3"><label asp-for="LotId" class="form-label">Lot</label><select asp-for="LotId" class="form-select" asp-items="ViewBag.Lots"><option value="">—</option></select></div>
+            <div class="col-md-4 mb-3"><label asp-for="ProtocoleSanitaireId" class="form-label">Protocole</label><select asp-for="ProtocoleSanitaireId" class="form-select" asp-items="ViewBag.Protocoles"><option value="">—</option></select></div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3"><label asp-for="WaitMilkUntil" class="form-label">Attente lait jusqu'au</label><input asp-for="WaitMilkUntil" class="form-control" type="date" /></div>
+            <div class="col-md-6 mb-3"><label asp-for="WaitMeatUntil" class="form-label">Attente viande jusqu'au</label><input asp-for="WaitMeatUntil" class="form-control" type="date" /></div>
+        </div>
+        <div class="mb-3"><label asp-for="Notes" class="form-label"></label><textarea asp-for="Notes" class="form-control"></textarea></div>
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+        <a asp-action="Index" class="btn btn-link">Annuler</a>
+    </form>
+</div>

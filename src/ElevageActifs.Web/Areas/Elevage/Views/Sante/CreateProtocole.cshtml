@@ -1,0 +1,12 @@
+@model ProtocoleSanitaire
+@{ ViewData["Title"] = "Nouveau protocole"; }
+<div class="container py-4" style="max-width:600px">
+    <h1 class="h3 mb-3">@ViewData["Title"]</h1>
+    <form method="post">
+        <div class="mb-3"><label asp-for="Name" class="form-label"></label><input asp-for="Name" class="form-control" /></div>
+        <div class="mb-3"><label asp-for="Species" class="form-label">Espèce</label><input asp-for="Species" class="form-control" /></div>
+        <div class="mb-3"><label asp-for="Description" class="form-label"></label><textarea asp-for="Description" class="form-control"></textarea></div>
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+        <a asp-action="Index" class="btn btn-link">Annuler</a>
+    </form>
+</div>

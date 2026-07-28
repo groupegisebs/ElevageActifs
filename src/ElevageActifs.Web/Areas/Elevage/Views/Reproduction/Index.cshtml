@@ -1,0 +1,24 @@
+@model IEnumerable<EvenementReproduction>
+@{ ViewData["Title"] = "Reproduction"; }
+<div class="container py-4">
+    <div class="d-flex justify-content-between mb-3">
+        <h1 class="h3">Reproduction</h1>
+        <a class="btn btn-primary" asp-action="Create">Nouvel événement</a>
+    </div>
+    <table class="table table-striped">
+        <thead><tr><th>Date</th><th>Animal</th><th>Type</th><th>Fin</th><th>Notes</th><th></th></tr></thead>
+        <tbody>
+        @foreach (var e in Model)
+        {
+            <tr>
+                <td>@e.StartDate.ToString("yyyy-MM-dd")</td>
+                <td>@e.Animal.BoucleNumber</td>
+                <td>@e.Type</td>
+                <td>@(e.EndDate?.ToString("yyyy-MM-dd") ?? "—")</td>
+                <td>@e.Notes</td>
+                <td><a asp-action="Edit" asp-route-id="@e.Id">Modifier</a></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
