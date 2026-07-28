@@ -295,7 +295,7 @@ public class AnimauxController(
             .FirstOrDefaultAsync(a => a.Id == id && a.ExploitationId == exploitationId, cancellationToken);
         if (animal is null) return NotFound();
         ViewBag.AnimalLabel = animal.BoucleNumber;
-        return View(new AnimalEvenement { AnimalId = id, EventDate = DateTime.UtcNow.Date });
+        return View(new AnimalEvenement { AnimalId = id, EventDate = DateTime.SpecifyKind(DateTime.UtcNow.Date, DateTimeKind.Utc) });
     }
 
     [HttpPost, ValidateAntiForgeryToken]
@@ -407,7 +407,7 @@ public class SanteController(
     public async Task<IActionResult> CreateTraitement(CancellationToken cancellationToken)
     {
         await LoadLookupsAsync(cancellationToken);
-        return View(new Traitement { AdministeredAt = DateTime.UtcNow.Date });
+        return View(new Traitement { AdministeredAt = DateTime.SpecifyKind(DateTime.UtcNow.Date, DateTimeKind.Utc) });
     }
 
     [HttpPost, ValidateAntiForgeryToken]
@@ -459,7 +459,7 @@ public class ReproductionController(
     public async Task<IActionResult> Create(CancellationToken cancellationToken)
     {
         await LoadAnimauxAsync(cancellationToken);
-        return View(new EvenementReproduction { StartDate = DateTime.UtcNow.Date });
+        return View(new EvenementReproduction { StartDate = DateTime.SpecifyKind(DateTime.UtcNow.Date, DateTimeKind.Utc) });
     }
 
     [HttpPost, ValidateAntiForgeryToken]
@@ -709,7 +709,7 @@ public class MaintenanceController(
     public async Task<IActionResult> Create(CancellationToken cancellationToken)
     {
         await LoadActifsAsync(cancellationToken);
-        return View(new InterventionMaintenance { PlannedDate = DateTime.UtcNow.Date });
+        return View(new InterventionMaintenance { PlannedDate = DateTime.SpecifyKind(DateTime.UtcNow.Date, DateTimeKind.Utc) });
     }
 
     [HttpPost, ValidateAntiForgeryToken]

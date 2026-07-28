@@ -25,7 +25,7 @@ builder.Services.AddSession(options =>
 
 builder.Services.AddSecureIdentity(builder.Configuration);
 builder.Services.AddSecureAuthorization();
-builder.Services.AddApplicationServices();
+builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddEmailServices(builder.Configuration);
 builder.Services.AddControllersWithViews()
     .AddViewLocalization();

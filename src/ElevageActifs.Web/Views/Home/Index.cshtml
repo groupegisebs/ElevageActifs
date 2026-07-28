@@ -1,11 +1,17 @@
 ﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+@inject Microsoft.Extensions.Options.IOptions<ElevageActifs.Web.Options.DemoOptions> DemoOptionsAccessor
 @{
     ViewData["Title"] = Localizer["Home.Badge"];
     var isAuthenticated = User.Identity?.IsAuthenticated == true;
+    var isDemo = DemoOptionsAccessor.Value.Enabled;
 }
 
 <div class="landing-hero">
     <div class="mb-3">
+        @if (isDemo)
+        {
+            <span class="demo-mode-pill me-2">Mode démo</span>
+        }
         <span class="badge text-bg-primary px-3 py-2 rounded-pill">
             <i class="bi bi-shield-lock me-1"></i> @Localizer["Home.Badge"]
         </span>
@@ -15,6 +21,11 @@
     @if (isAuthenticated)
     {
         <div class="d-flex flex-wrap gap-2 justify-content-center">
+            <gise-permission resource="ElevageDashboard" action="View">
+                <a asp-area="Elevage" asp-controller="Dashboard" asp-action="Index" class="btn btn-glow btn-lg">
+                    <i class="bi bi-heart-pulse me-2"></i> Élevage
+                </a>
+            </gise-permission>
             <gise-permission resource="Dashboard" action="View">
                 <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="btn btn-glow btn-lg">
                     <i class="bi bi-grid me-2"></i> @Localizer["Home.AdminButton"]
@@ -23,6 +34,12 @@
             <a asp-controller="Profile" asp-action="Index" class="btn btn-outline-primary btn-lg">
                 <i class="bi bi-person me-2"></i> @Localizer["Home.ProfileButton"]
             </a>
+            @if (isDemo)
+            {
+                <a asp-controller="Contact" asp-action="Promoteur" class="btn btn-outline-danger btn-lg">
+                    Contacter le promoteur
+                </a>
+            }
         </div>
     }
     else
@@ -31,6 +48,12 @@
             <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-glow btn-lg">
                 <i class="bi bi-box-arrow-in-right me-2"></i> @Localizer["Home.LoginButton"]
             </a>
+            @if (isDemo)
+            {
+                <a asp-controller="Contact" asp-action="Promoteur" class="btn btn-outline-danger btn-lg">
+                    Contacter le promoteur
+                </a>
+            }
         </div>
     }
 </div>

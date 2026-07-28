@@ -19,6 +19,13 @@ public static class SeedData
     private const string AdminPassword = "Elevage@Admin2026!";
     private const string DemoPassword = "Demo@Elevage2026!";
 
+    /// <summary>Date UTC à minuit — Npgsql refuse Kind=Unspecified sur timestamptz.</summary>
+    private static DateTime UtcDate(int year, int month, int day) =>
+        new(year, month, day, 0, 0, 0, DateTimeKind.Utc);
+
+    private static DateTime UtcToday() =>
+        DateTime.SpecifyKind(DateTime.UtcNow.Date, DateTimeKind.Utc);
+
     public static async Task InitializeAsync(IServiceProvider services)
     {
         using var scope = services.CreateScope();
@@ -256,7 +263,7 @@ public static class SeedData
                 Species = "Bovin",
                 Race = i % 3 == 0 ? "Holstein" : (i % 3 == 1 ? "Jersey" : "Simmental"),
                 Sex = i <= 20 ? "F" : "M",
-                BirthDate = DateTime.UtcNow.Date.AddYears(-3).AddDays(i * 12),
+                BirthDate = UtcToday().AddYears(-3).AddDays(i * 12),
                 Statut = AnimalStatut.Present,
                 TroupeauId = troupeau.Id,
                 LotId = lot.Id,
@@ -267,10 +274,10 @@ public static class SeedData
         await db.SaveChangesAsync();
 
         db.AnimalEvenements.AddRange(
-            new AnimalEvenement { AnimalId = animals[0].Id, Type = AnimalEvenementType.Entree, EventDate = DateTime.UtcNow.Date.AddMonths(-6), Notes = "Achat" },
-            new AnimalEvenement { AnimalId = animals[0].Id, Type = AnimalEvenementType.Pesee, EventDate = DateTime.UtcNow.Date.AddDays(-7), WeightKg = 625 },
-            new AnimalEvenement { AnimalId = animals[1].Id, Type = AnimalEvenementType.Pesee, EventDate = DateTime.UtcNow.Date.AddDays(-14), WeightKg = 580 },
-            new AnimalEvenement { AnimalId = animals[5].Id, Type = AnimalEvenementType.Observation, EventDate = DateTime.UtcNow.Date.AddDays(-2), Notes = "Boiterie légère" });
+            new AnimalEvenement { AnimalId = animals[0].Id, Type = AnimalEvenementType.Entree, EventDate = UtcToday().AddMonths(-6), Notes = "Achat" },
+            new AnimalEvenement { AnimalId = animals[0].Id, Type = AnimalEvenementType.Pesee, EventDate = UtcToday().AddDays(-7), WeightKg = 625 },
+            new AnimalEvenement { AnimalId = animals[1].Id, Type = AnimalEvenementType.Pesee, EventDate = UtcToday().AddDays(-14), WeightKg = 580 },
+            new AnimalEvenement { AnimalId = animals[5].Id, Type = AnimalEvenementType.Observation, EventDate = UtcToday().AddDays(-2), Notes = "Boiterie légère" });
 
         var protocoles = new[]
         {
@@ -280,7 +287,7 @@ public static class SeedData
         db.ProtocolesSanitaires.AddRange(protocoles);
         await db.SaveChangesAsync();
 
-        var today = DateTime.UtcNow.Date;
+        var today = UtcToday();
         db.Traitements.AddRange(
             new Traitement { ExploitationId = exploitation.Id, AnimalId = animals[0].Id, ProtocoleSanitaireId = protocoles[0].Id, Product = "Vaccin IBR-BVD", Dose = "2 ml", AdministeredAt = today.AddDays(-30) },
             new Traitement { ExploitationId = exploitation.Id, LotId = lots[0].Id, Product = "Antiparasitaire", Dose = "10 ml/animal", AdministeredAt = today.AddDays(-15), WaitMilkUntil = today.AddDays(5), WaitMeatUntil = today.AddDays(28) },
@@ -295,7 +302,7 @@ public static class SeedData
 
         var actifs = new[]
         {
-            new ActifMateriel { ExploitationId = exploitation.Id, InternalCode = "BA-01", Name = "Étable principale", Categorie = ActifCategorie.BatimentElevage, AcquisitionValue = 450000, AcquisitionDate = new DateTime(2010, 5, 1), EnclosId = enclos[0].Id },
+            new ActifMateriel { ExploitationId = exploitation.Id, InternalCode = "BA-01", Name = "Étable principale", Categorie = ActifCategorie.BatimentElevage, AcquisitionValue = 450000, AcquisitionDate = UtcDate(2010, 5, 1), EnclosId = enclos[0].Id },
             new ActifMateriel { ExploitationId = exploitation.Id, InternalCode = "TR-01", Name = "Robot de traite Lely", Categorie = ActifCategorie.MaterielTraite, Brand = "Lely", Model = "A5", Year = 2021, AcquisitionValue = 185000, EnclosId = enclos[3].Id },
             new ActifMateriel { ExploitationId = exploitation.Id, InternalCode = "AL-01", Name = "Mélangeur vertical", Categorie = ActifCategorie.Alimentation, Brand = "Trioliet", AcquisitionValue = 42000, Year = 2019 },
             new ActifMateriel { ExploitationId = exploitation.Id, InternalCode = "CO-01", Name = "Contenants silo grains", Categorie = ActifCategorie.Contenue, AcquisitionValue = 65000, Year = 2015 },
