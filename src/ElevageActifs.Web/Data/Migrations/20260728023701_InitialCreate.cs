@@ -905,7 +905,7 @@ namespace ElevageActifs.Web.Data.Migrations
                 schema: "elevageactifs",
                 table: "SystemSettings",
                 columns: new[] { "Id", "ActiveThemeId", "AppName", "DefaultCulture", "LockoutMinutes", "LogoUrl", "MaxFailedAccessAttempts", "RequireConfirmedEmail", "RequireTwoFactor", "SessionTimeoutMinutes", "SmtpHost", "SmtpPort", "SmtpUseSsl", "SmtpUser", "Tagline", "UpdatedAt" },
-                values: new object[] { 1, 1, "GISEBS Secure MVC Starter", "fr-FR", 15, null, 5, true, false, 30, null, 587, true, null, null, new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc) });
+                values: new object[] { 1, 1, "ElevageActifs", "fr-FR", 15, null, 5, true, false, 30, null, 587, true, null, null, new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc) });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ActifsMateriel_EnclosId",

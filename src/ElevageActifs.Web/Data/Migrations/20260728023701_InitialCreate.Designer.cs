@@ -1070,7 +1070,7 @@ namespace ElevageActifs.Web.Data.Migrations
                         {
                             Id = 1,
                             ActiveThemeId = 1,
-                            AppName = "GISEBS Secure MVC Starter",
+                            AppName = "ElevageActifs",
                             DefaultCulture = "fr-FR",
                             LockoutMinutes = 15,
                             MaxFailedAccessAttempts = 5,
